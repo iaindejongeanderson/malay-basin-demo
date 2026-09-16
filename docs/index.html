@@ -3,276 +3,161 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Malay Basin CO&#8322; Storage Calculator</title>
-<meta name="description" content="Probabilistic CO2 storage capacity calculator for saline aquifers in the Malay Basin, after de Jonge-Anderson et al. (2025).">
+<title>Malay Basin Screening Cut-offs</title>
+<meta name="description" content="Interactive explorer for the screening cut-offs that define optimal CO2 injection zones in the Malay Basin, after de Jonge-Anderson et al. (2025).">
 <style>
 :root {
   color-scheme: light;
-  --page:            #f9f9f7;
-  --surface-1:       #fcfcfb;
-  --surface-2:       #f2f1ed;
-  --text-primary:    #0b0b0b;
-  --text-secondary:  #52514e;
-  --muted:           #898781;
-  --grid:            #e1e0d9;
-  --axis:            #c3c2b7;
-  --border:          rgba(11,11,11,0.10);
-  --series-1:        #2a78d6;
-  --series-2:        #eb6834;
-  --series-3:        #1baf7a;
-  --diverge-lo:      #2a78d6;
-  --diverge-hi:      #e34948;
-  --good:            #0ca30c;
-  --warning:         #fab219;
-  --critical:        #d03b3b;
-  --zone-nonviable:  #c9c7bd;
-  --zone-suboptimal: #fab219;
-  --zone-optimal:    #0ca30c;
-  --map-bg:          #eceae4;
-  --focus:           #2a78d6;
+  --page:#f9f9f7; --surface-1:#fcfcfb; --surface-2:#f2f1ed; --surface-3:#e9e8e2;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,0.10);
+  --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a;
+  --good:#0ca30c; --warning:#fab219; --critical:#d03b3b;
+  --zone-nonviable:#c9c7bd; --zone-suboptimal:#fab219; --zone-optimal:#0ca30c;
+  --map-bg:#eceae4; --focus:#2a78d6;
 }
 @media (prefers-color-scheme: dark) {
   :root:where(:not([data-theme="light"])) {
     color-scheme: dark;
-    --page:            #0d0d0d;
-    --surface-1:       #1a1a19;
-    --surface-2:       #232321;
-    --text-primary:    #ffffff;
-    --text-secondary:  #c3c2b7;
-    --muted:           #898781;
-    --grid:            #2c2c2a;
-    --axis:            #383835;
-    --border:          rgba(255,255,255,0.10);
-    --series-1:        #3987e5;
-    --series-2:        #d95926;
-    --series-3:        #199e70;
-    --diverge-lo:      #3987e5;
-    --diverge-hi:      #e66767;
-    --zone-nonviable:  #4a4a45;
-    --map-bg:          #141413;
-    --focus:           #3987e5;
+    --page:#0d0d0d; --surface-1:#1a1a19; --surface-2:#232321; --surface-3:#2c2c29;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,0.10);
+    --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70;
+    --zone-nonviable:#4a4a45; --map-bg:#141413; --focus:#3987e5;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --page:            #0d0d0d;
-  --surface-1:       #1a1a19;
-  --surface-2:       #232321;
-  --text-primary:    #ffffff;
-  --text-secondary:  #c3c2b7;
-  --muted:           #898781;
-  --grid:            #2c2c2a;
-  --axis:            #383835;
-  --border:          rgba(255,255,255,0.10);
-  --series-1:        #3987e5;
-  --series-2:        #d95926;
-  --series-3:        #199e70;
-  --diverge-lo:      #3987e5;
-  --diverge-hi:      #e66767;
-  --zone-nonviable:  #4a4a45;
-  --map-bg:          #141413;
-  --focus:           #3987e5;
+  --page:#0d0d0d; --surface-1:#1a1a19; --surface-2:#232321; --surface-3:#2c2c29;
+  --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,0.10);
+  --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70;
+  --zone-nonviable:#4a4a45; --map-bg:#141413; --focus:#3987e5;
 }
 
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
-body {
-  background: var(--page);
-  color: var(--text-primary);
-  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
-  -webkit-text-size-adjust: 100%;
-}
-h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.01em; }
-h1 { font-size: 20px; }
-h2 { font-size: 15px; }
-h3 { font-size: 13px; color: var(--text-secondary); font-weight: 600; }
-p  { margin: 0 0 10px; }
-a  { color: var(--series-1); }
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--page);color:var(--text-primary);
+  font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-text-size-adjust:100%}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-0.01em}
+h1{font-size:20px} h2{font-size:15px} h3{font-size:13px;color:var(--text-secondary)}
+p{margin:0 0 10px} a{color:var(--series-1)}
+.wrap{max-width:1440px;margin:0 auto;padding:0 16px 64px}
 
-.wrap { max-width: 1400px; margin: 0 auto; padding: 0 16px 64px; }
+header{border-bottom:1px solid var(--border);background:var(--surface-1);position:sticky;top:0;z-index:20}
+.hdr-in{max-width:1440px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.hdr-txt{flex:1 1 320px;min-width:0}
+.hdr-sub{color:var(--text-secondary);font-size:12.5px}
+.btn{font:inherit;font-size:13px;background:var(--surface-1);color:var(--text-primary);
+  border:1px solid var(--border);border-radius:8px;padding:7px 12px;cursor:pointer}
+.btn:hover{background:var(--surface-2)}
+.btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.btn-primary{background:var(--series-1);border-color:var(--series-1);color:#fff;font-weight:600}
+.btn-primary:hover{filter:brightness(1.08);background:var(--series-1)}
+.btn:disabled{opacity:.45;cursor:default}
 
-/* ---------- header ---------- */
-header {
-  border-bottom: 1px solid var(--border);
-  background: var(--surface-1);
-  position: sticky; top: 0; z-index: 20;
-}
-.hdr-in {
-  max-width: 1400px; margin: 0 auto; padding: 12px 16px;
-  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-}
-.hdr-txt { flex: 1 1 320px; min-width: 0; }
-.hdr-sub { color: var(--text-secondary); font-size: 12.5px; }
-.btn {
-  font: inherit; font-size: 13px;
-  background: var(--surface-1); color: var(--text-primary);
-  border: 1px solid var(--border); border-radius: 8px;
-  padding: 7px 12px; cursor: pointer;
-}
-.btn:hover { background: var(--surface-2); }
-.btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-.btn-primary { background: var(--series-1); border-color: var(--series-1); color: #fff; font-weight: 600; }
-.btn-primary:hover { filter: brightness(1.08); background: var(--series-1); }
+.tabs{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:18px 0 14px}
+.tabs-lbl{font-size:12px;color:var(--muted);margin-right:4px;text-transform:uppercase;letter-spacing:.06em}
+.tab{font:inherit;font-size:13px;cursor:pointer;background:var(--surface-1);color:var(--text-secondary);
+  border:1px solid var(--border);border-radius:999px;padding:6px 14px;display:inline-flex;align-items:center;gap:7px}
+.tab:hover{background:var(--surface-2)}
+.tab[aria-selected="true"]{background:var(--text-primary);color:var(--page);border-color:var(--text-primary);font-weight:600}
+.tab .dot{width:7px;height:7px;border-radius:50%;background:var(--good)}
+.tab .dot.none{background:var(--zone-nonviable)}
+.tab:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 
-/* ---------- aquifer tabs ---------- */
-.tabs { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin: 18px 0 14px; }
-.tabs-lbl { font-size: 12px; color: var(--muted); margin-right: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
-.tab {
-  font: inherit; font-size: 13px; cursor: pointer;
-  background: var(--surface-1); color: var(--text-secondary);
-  border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px;
-  display: inline-flex; align-items: center; gap: 7px;
-}
-.tab:hover { background: var(--surface-2); }
-.tab[aria-selected="true"] {
-  background: var(--text-primary); color: var(--page);
-  border-color: var(--text-primary); font-weight: 600;
-}
-.tab .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--good); }
-.tab .dot.none { background: var(--zone-nonviable); }
-.tab:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:1060px){.cols{grid-template-columns:minmax(0,1fr)}}
 
-/* ---------- layout ---------- */
-.cols { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,1fr); gap: 16px; align-items: start; }
-@media (max-width: 1020px) { .cols { grid-template-columns: minmax(0,1fr); } }
+.card{background:var(--surface-1);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px}
+.card-hd{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:4px;flex-wrap:wrap}
+.card-note{color:var(--text-secondary);font-size:12.5px;margin:2px 0 14px}
 
-.card {
-  background: var(--surface-1);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
-}
-.card-hd { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
-.card-note { color: var(--text-secondary); font-size: 12.5px; margin: 2px 0 14px; }
+/* ---- map ---- */
+.map-holder{position:relative;background:var(--map-bg);border:1px solid var(--border);
+  border-radius:10px;overflow:hidden;aspect-ratio:1/1}
+#map{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+.map-zoom{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:5px}
+.map-zoom button{width:30px;height:30px;font:inherit;font-size:15px;cursor:pointer;
+  background:color-mix(in srgb,var(--surface-1) 92%,transparent);color:var(--text-primary);
+  border:1px solid var(--border);border-radius:7px;display:grid;place-items:center;line-height:1}
+.map-zoom button:hover{background:var(--surface-2)}
+.map-hint{position:absolute;left:10px;bottom:10px;background:color-mix(in srgb,var(--surface-1) 88%,transparent);
+  border:1px solid var(--border);border-radius:7px;padding:4px 9px;font-size:11.5px;
+  color:var(--text-secondary);pointer-events:none}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:11px;font-size:12.5px;color:var(--text-secondary)}
+.legend .it{display:inline-flex;align-items:center;gap:6px}
+.legend .sw{width:13px;height:13px;border-radius:3px;border:1px solid var(--border);flex:none}
+.readout{margin-top:9px;font-size:12px;color:var(--text-secondary);font-variant-numeric:tabular-nums;
+  min-height:32px;display:flex;gap:14px;flex-wrap:wrap}
+.readout b{color:var(--text-primary);font-weight:600}
 
-/* ---------- map ---------- */
-.map-tools { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
-.seg { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-.seg button {
-  font: inherit; font-size: 12.5px; cursor: pointer; padding: 6px 11px;
-  background: var(--surface-1); color: var(--text-secondary); border: 0;
-  border-right: 1px solid var(--border);
-}
-.seg button:last-child { border-right: 0; }
-.seg button[aria-pressed="true"] { background: var(--series-1); color: #fff; font-weight: 600; }
-.seg button:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+/* ---- stats ---- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:10px}
+.stat{background:var(--surface-2);border-radius:10px;padding:11px 12px}
+.stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.stat .v{font-size:22px;font-weight:600;margin-top:3px;letter-spacing:-0.02em}
+.stat .u{font-size:12px;color:var(--text-secondary);font-weight:400}
+.stat .d{font-size:11.5px;margin-top:2px;color:var(--text-secondary)}
+.stat.hero{background:color-mix(in srgb,var(--series-1) 9%,var(--surface-2))}
+.stat.hero .v{font-size:28px}
 
-.map-holder {
-  position: relative; background: var(--map-bg);
-  border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
-  aspect-ratio: 1 / 1;
-}
-#map { display: block; width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
-.map-hint {
-  position: absolute; left: 10px; bottom: 10px;
-  background: color-mix(in srgb, var(--surface-1) 88%, transparent);
-  border: 1px solid var(--border); border-radius: 7px;
-  padding: 4px 9px; font-size: 11.5px; color: var(--text-secondary);
-  pointer-events: none; max-width: calc(100% - 20px);
-}
-.map-zoom { position: absolute; right: 10px; top: 10px; display: flex; flex-direction: column; gap: 5px; }
-.map-zoom button {
-  width: 30px; height: 30px; font: inherit; font-size: 15px; cursor: pointer;
-  background: color-mix(in srgb, var(--surface-1) 92%, transparent);
-  color: var(--text-primary); border: 1px solid var(--border); border-radius: 7px;
-  display: grid; place-items: center; line-height: 1;
-}
-.map-zoom button:hover { background: var(--surface-2); }
+/* ---- cut-off controls ---- */
+.crit{border:1px solid var(--border);border-radius:10px;padding:11px 12px;margin-bottom:10px;background:var(--surface-2)}
+.crit-hd{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:9px}
+.crit-hd .nm{font-size:13px;font-weight:600}
+.crit-hd .pub{font-size:11px;color:var(--muted)}
+.crow{display:grid;grid-template-columns:76px 1fr 74px;align-items:center;gap:9px;margin-bottom:6px}
+.crow:last-child{margin-bottom:0}
+.crow .lbl{font-size:12px;color:var(--text-secondary)}
+.crow .lbl .sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:baseline}
+input[type="range"]{width:100%;accent-color:var(--series-1);margin:0}
+input[type="number"]{font:inherit;font-size:12.5px;font-variant-numeric:tabular-nums;width:100%;text-align:right;
+  background:var(--surface-1);color:var(--text-primary);border:1px solid var(--border);border-radius:6px;padding:4px 6px}
+input[type="number"]:focus-visible{outline:2px solid var(--focus);outline-offset:-1px}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:7px;overflow:hidden;width:100%}
+.seg button{flex:1;font:inherit;font-size:11.5px;cursor:pointer;padding:4px 2px;background:var(--surface-1);
+  color:var(--text-secondary);border:0;border-right:1px solid var(--border);white-space:nowrap}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--series-1);color:#fff;font-weight:600}
+.chk{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text-secondary);margin-bottom:6px}
+.chk:last-child{margin-bottom:0}
+.chk input{accent-color:var(--series-1);width:15px;height:15px;margin:0}
+.badge{font-size:11px;padding:2px 8px;border-radius:999px;font-weight:600}
+.badge.pub{background:color-mix(in srgb,var(--good) 16%,transparent);color:var(--good)}
+.badge.mod{background:color-mix(in srgb,var(--series-2) 18%,transparent);color:var(--series-2)}
 
-.legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 11px; font-size: 12.5px; color: var(--text-secondary); }
-.legend .it { display: inline-flex; align-items: center; gap: 6px; }
-.legend .sw { width: 13px; height: 13px; border-radius: 3px; border: 1px solid var(--border); flex: none; }
-.legend .sw.ring { background: none; border: 2px solid var(--text-primary); }
+/* ---- charts ---- */
+.chart{width:100%;display:block}
+.chart-wrap{position:relative}
+.tip{position:absolute;pointer-events:none;opacity:0;transition:opacity .1s;background:var(--text-primary);
+  color:var(--page);font-size:12px;line-height:1.45;padding:7px 9px;border-radius:7px;white-space:nowrap;
+  z-index:10;font-variant-numeric:tabular-nums}
+.tip.on{opacity:1}
 
-.readout {
-  margin-top: 10px; font-size: 12px; color: var(--text-secondary);
-  font-variant-numeric: tabular-nums; min-height: 34px;
-  display: flex; gap: 16px; flex-wrap: wrap;
-}
-.readout b { color: var(--text-primary); font-weight: 600; }
+table.data{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+table.data th,table.data td{padding:6px 8px;border-bottom:1px solid var(--grid);text-align:right;white-space:nowrap}
+table.data th{font-size:10.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;
+  border-bottom:1px solid var(--axis)}
+table.data th:first-child,table.data td:first-child{text-align:left}
+table.data tr:last-child td{border-bottom:0}
+.scroller{overflow-x:auto}
+.cap-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:860px){.cap-grid{grid-template-columns:minmax(0,1fr)}}
 
-/* ---------- stats ---------- */
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(126px,1fr)); gap: 10px; margin-bottom: 4px; }
-.stat { background: var(--surface-2); border-radius: 10px; padding: 11px 12px; }
-.stat .k { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
-.stat .v { font-size: 21px; font-weight: 600; margin-top: 3px; letter-spacing: -0.02em; }
-.stat .u { font-size: 12px; color: var(--text-secondary); font-weight: 400; }
-.stat.hero .v { font-size: 30px; }
-.stat.hero { background: color-mix(in srgb, var(--series-1) 9%, var(--surface-2)); }
-
-/* ---------- parameter table ---------- */
-table.params { width: 100%; border-collapse: collapse; font-size: 13px; }
-table.params th {
-  text-align: left; font-size: 11px; color: var(--muted); font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.05em;
-  padding: 0 6px 7px; border-bottom: 1px solid var(--grid);
-}
-table.params th.n, table.params td.n { text-align: right; }
-table.params td { padding: 6px; border-bottom: 1px solid var(--grid); vertical-align: middle; }
-table.params tr:last-child td { border-bottom: 0; }
-.pname { font-weight: 500; }
-.psrc { font-size: 11px; color: var(--muted); }
-input[type="number"] {
-  font: inherit; font-size: 13px; font-variant-numeric: tabular-nums;
-  width: 82px; text-align: right;
-  background: var(--surface-1); color: var(--text-primary);
-  border: 1px solid var(--border); border-radius: 7px; padding: 5px 7px;
-}
-input[type="number"]:focus-visible { outline: 2px solid var(--focus); outline-offset: -1px; border-color: var(--focus); }
-input[type="number"].dirty { border-color: var(--series-2); }
-input:disabled { opacity: 0.45; }
-
-.run-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 14px; }
-.run-row label { font-size: 12.5px; color: var(--text-secondary); display: inline-flex; align-items: center; gap: 6px; }
-select {
-  font: inherit; font-size: 13px; background: var(--surface-1); color: var(--text-primary);
-  border: 1px solid var(--border); border-radius: 7px; padding: 5px 8px;
-}
-
-/* ---------- charts ---------- */
-.chart { width: 100%; display: block; }
-.chart-wrap { position: relative; }
-.tip {
-  position: absolute; pointer-events: none; opacity: 0; transition: opacity .1s;
-  background: var(--text-primary); color: var(--page);
-  font-size: 12px; line-height: 1.45; padding: 7px 9px; border-radius: 7px;
-  white-space: nowrap; z-index: 10; font-variant-numeric: tabular-nums;
-}
-.tip.on { opacity: 1; }
-
-/* ---------- data table ---------- */
-.scroller { overflow-x: auto; margin: 0 -4px; }
-table.data { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
-table.data th, table.data td { padding: 7px 9px; border-bottom: 1px solid var(--grid); text-align: right; white-space: nowrap; }
-table.data th {
-  font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.05em; border-bottom: 1px solid var(--axis);
-}
-table.data th:first-child, table.data td:first-child { text-align: left; }
-table.data tbody tr:hover { background: var(--surface-2); }
-table.data tr.sel td { background: color-mix(in srgb, var(--series-1) 10%, transparent); }
-table.data tfoot td { font-weight: 600; border-top: 1px solid var(--axis); border-bottom: 0; }
-.swatch-cell { display: inline-flex; align-items: center; gap: 7px; }
-
-/* ---------- notes ---------- */
-.notes { font-size: 13.5px; color: var(--text-secondary); }
-.notes h3 { margin: 18px 0 6px; color: var(--text-primary); font-size: 13.5px; }
-.notes h3:first-child { margin-top: 0; }
-.notes ul { margin: 0 0 10px; padding-left: 20px; }
-.notes li { margin-bottom: 5px; }
-.notes code, code.eq {
-  background: var(--surface-2); border-radius: 5px; padding: 1px 5px;
-  font: 12.5px/1.6 ui-monospace, "Cascadia Code", Consolas, monospace;
-}
-code.eq { display: block; padding: 11px 13px; margin: 8px 0 12px; color: var(--text-primary); white-space: pre-wrap; }
-.warn {
-  border-left: 3px solid var(--warning); background: var(--surface-2);
-  padding: 10px 13px; border-radius: 0 8px 8px 0; margin: 10px 0;
-}
-.warn b { color: var(--text-primary); }
-footer { margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--muted); }
-.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.notes{font-size:13.5px;color:var(--text-secondary)}
+.notes h3{margin:18px 0 6px;color:var(--text-primary);font-size:13.5px}
+.notes h3:first-child{margin-top:0}
+.notes ul{margin:0 0 10px;padding-left:20px}
+.notes li{margin-bottom:5px}
+.notes code,code.eq{background:var(--surface-2);border-radius:5px;padding:1px 5px;
+  font:12.5px/1.6 ui-monospace,"Cascadia Code",Consolas,monospace}
+code.eq{display:block;padding:11px 13px;margin:8px 0 12px;color:var(--text-primary);white-space:pre-wrap}
+.warn{border-left:3px solid var(--warning);background:var(--surface-2);padding:10px 13px;
+  border-radius:0 8px 8px 0;margin:10px 0}
+.warn b{color:var(--text-primary)}
+footer{margin-top:26px;padding-top:16px;border-top:1px solid var(--border);font-size:12.5px;color:var(--muted)}
+.loading{display:grid;place-items:center;height:100%;color:var(--muted);font-size:13px}
 </style>
 </head>
 <body>
@@ -280,9 +165,9 @@ footer { margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--border
 <header>
   <div class="hdr-in">
     <div class="hdr-txt">
-      <h1>Malay Basin CO&#8322; Storage Capacity Calculator</h1>
+      <h1>What makes a CO&#8322; storage zone &ldquo;optimal&rdquo;?</h1>
       <div class="hdr-sub">
-        Probabilistic saline-aquifer capacity, after
+        Move the screening cut-offs and watch the Malay Basin optimal zones redraw. After
         <a href="https://doi.org/10.1016/j.ijggc.2025.104347" target="_blank" rel="noopener">de Jonge-Anderson et al. (2025)</a>,
         <i>Int. J. Greenhouse Gas Control</i> <b>143</b>, 104347
       </div>
@@ -293,195 +178,164 @@ footer { margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--border
 
 <div class="wrap">
 
-  <div class="tabs" role="tablist" aria-label="Aquifer">
-    <span class="tabs-lbl">Aquifer</span>
-    <!-- tabs injected -->
-  </div>
+  <div class="tabs" role="tablist" aria-label="Aquifer"><span class="tabs-lbl">Aquifer</span></div>
 
   <div class="cols">
 
-    <!-- ============ LEFT: MAP ============ -->
+    <!-- ============ LEFT ============ -->
     <div>
       <section class="card">
         <div class="card-hd">
           <h2 id="mapTitle">Optimal injection zones</h2>
-          <span class="psrc" id="mapCrs">EPSG:24548 &middot; Kertau 1968 / UTM 48N</span>
+          <span class="card-note" style="margin:0" id="mapCrs">EPSG:24548 &middot; 400 m grid</span>
         </div>
         <p class="card-note" id="mapNote"></p>
-
-        <div class="map-tools">
-          <div class="seg" role="group" aria-label="Area selection mode">
-            <button type="button" data-mode="all"  aria-pressed="true">Whole aquifer</button>
-            <button type="button" data-mode="clus" aria-pressed="false">Pick cluster</button>
-            <button type="button" data-mode="rect" aria-pressed="false">Draw box</button>
-          </div>
-          <button class="btn" type="button" id="clearSel">Clear selection</button>
-        </div>
-
         <div class="map-holder">
           <canvas id="map"></canvas>
           <div class="map-zoom">
-            <button type="button" id="zIn"  title="Zoom in"  aria-label="Zoom in">+</button>
+            <button type="button" id="zIn" title="Zoom in" aria-label="Zoom in">+</button>
             <button type="button" id="zOut" title="Zoom out" aria-label="Zoom out">&minus;</button>
             <button type="button" id="zRst" title="Reset view" aria-label="Reset view">&#9633;</button>
           </div>
           <div class="map-hint" id="mapHint">Scroll to zoom &middot; drag to pan</div>
         </div>
-
         <div class="legend">
           <span class="it"><span class="sw" style="background:var(--zone-optimal)"></span>Optimal</span>
           <span class="it"><span class="sw" style="background:var(--zone-suboptimal)"></span>Sub-optimal</span>
           <span class="it"><span class="sw" style="background:var(--zone-nonviable)"></span>Non-viable</span>
-          <span class="it"><span class="sw ring"></span>Selection box</span>
-          <span class="it" style="color:var(--muted)">A selected zone keeps full colour; everything else dims.</span>
         </div>
-
         <div class="readout" id="readout"></div>
       </section>
 
       <section class="card">
-        <div class="card-hd"><h2>Sensitivity</h2></div>
+        <div class="card-hd"><h2>What is rejecting the ground?</h2></div>
         <p class="card-note">
-          Swing in capacity when each variable alone moves from its 10th to its 90th percentile,
-          with all others held at their mean.
+          Share of the aquifer footprint failing each <b>optimal</b> cut-off, taken one criterion at a time.
+          Criteria overlap, so these do not sum to the rejected total.
         </p>
         <div class="chart-wrap">
-          <canvas id="tornado" class="chart" height="210"></canvas>
-          <div class="tip" id="tornTip"></div>
+          <canvas id="breakdown" class="chart" height="190"></canvas>
+          <div class="tip" id="bdTip"></div>
         </div>
       </section>
     </div>
 
-    <!-- ============ RIGHT: CALCULATOR ============ -->
+    <!-- ============ RIGHT ============ -->
     <div>
       <section class="card">
-        <div class="card-hd"><h2>Storage capacity</h2><span class="psrc" id="runInfo"></span></div>
-        <p class="card-note">
-          Monte Carlo sampling of Eq. 2. Percentiles use the exceedance convention of the paper:
-          <b>P10</b> is the high estimate, <b>P90</b> the low.
-        </p>
-        <div class="stats" id="stats"></div>
-        <div class="chart-wrap" style="margin-top:14px">
-          <canvas id="hist" class="chart" height="230"></canvas>
-          <div class="tip" id="histTip"></div>
+        <div class="card-hd">
+          <h2>Result</h2>
+          <span id="pubBadge"></span>
         </div>
-        <div id="cmpPublished" class="card-note" style="margin:10px 0 0"></div>
+        <div class="stats" id="stats"></div>
       </section>
 
       <section class="card">
         <div class="card-hd">
-          <h2>Input parameters</h2>
-          <button class="btn" type="button" id="resetParams">Reset to published</button>
+          <h2>Screening cut-offs</h2>
+          <button class="btn" type="button" id="resetCuts">Reset to published</button>
         </div>
         <p class="card-note">
-          Each variable is drawn from a normal distribution truncated to physically valid bounds.
-          Edit any cell to explore alternatives; changed cells are outlined.
+          A cell is <b>optimal</b> if it passes every optimal cut-off, <b>sub-optimal</b> if it passes
+          every sub-optimal one, otherwise <b>non-viable</b>.
         </p>
-        <table class="params">
-          <thead>
-            <tr><th>Variable</th><th class="n">Mean</th><th class="n">Std. dev.</th><th></th></tr>
-          </thead>
-          <tbody id="paramRows"></tbody>
-        </table>
-        <div class="run-row">
-          <button class="btn btn-primary" type="button" id="runBtn">Run simulation</button>
-          <label>Trials
-            <select id="trials">
-              <option value="1000">1,000 (as published)</option>
-              <option value="10000" selected>10,000</option>
-              <option value="100000">100,000</option>
-            </select>
-          </label>
-          <label>Seed <input type="number" id="seed" value="42" step="1" style="width:66px"></label>
+        <div id="critControls"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-hd">
+          <h2>Response to one cut-off</h2>
+          <div class="seg" style="width:auto" id="sweepPick" role="group" aria-label="Criterion to sweep">
+            <button type="button" data-sweep="por" aria-pressed="true">Porosity</button>
+            <button type="button" data-sweep="den" aria-pressed="false">CO&#8322; density</button>
+            <button type="button" data-sweep="fau" aria-pressed="false">Fault setback</button>
+          </div>
+        </div>
+        <p class="card-note" id="sweepNote"></p>
+        <div class="chart-wrap">
+          <canvas id="sweepArea" class="chart" height="150"></canvas>
+          <div class="tip" id="swTip"></div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="sweepCap" class="chart" height="150"></canvas>
         </div>
       </section>
 
     </div>
   </div>
 
-  <!-- ============ BASIN SUMMARY ============ -->
   <section class="card">
-    <div class="card-hd">
-      <h2>Basin summary &mdash; all aquifers</h2>
-      <button class="btn" type="button" id="exportBtn">Download CSV</button>
-    </div>
+    <div class="card-hd"><h2>Storage capacity of the zone you just defined</h2>
+      <span class="card-note" style="margin:0" id="capInfo"></span></div>
     <p class="card-note">
-      Every aquifer run with its own published parameters and your current global settings for
-      S<sub>wirr</sub>, efficiency and trial count. Click a row to load that aquifer.
+      Eq. 2 of the paper, Monte Carlo over 10,000 trials. Area, porosity and CO&#8322; density are
+      measured live inside whatever optimal zone your cut-offs produce; thickness and NTG are the
+      published per-aquifer values.
     </p>
-    <div class="scroller">
-      <table class="data" id="basinTable">
-        <thead>
-          <tr>
-            <th>Aquifer</th><th>Area (km&#178;)</th><th>Thickness (m)</th><th>NTG</th>
-            <th>Porosity (%)</th><th>CO&#8322; density (kg/m&#179;)</th>
-            <th>P10 (Gt)</th><th>P50 (Gt)</th><th>P90 (Gt)</th><th>Published P50</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-        <tfoot></tfoot>
-      </table>
+    <div class="cap-grid">
+      <div class="scroller"><table class="data" id="capInputs"></table></div>
+      <div class="chart-wrap">
+        <canvas id="hist" class="chart" height="200"></canvas>
+        <div class="tip" id="histTip"></div>
+      </div>
     </div>
-    <div class="chart-wrap" style="margin-top:18px">
-      <canvas id="cmp" class="chart" height="260"></canvas>
-      <div class="tip" id="cmpTip"></div>
-    </div>
-    <div id="aggNote" class="warn" style="margin-top:16px"></div>
   </section>
 
-  <!-- ============ METHOD ============ -->
+  <!-- ============ NOTES ============ -->
   <section class="card notes">
-    <h2 style="color:var(--text-primary);margin-bottom:10px">Method, data and caveats</h2>
+    <h2 style="color:var(--text-primary);margin-bottom:10px">How this works, and what to trust</h2>
 
-    <h3>Capacity equation</h3>
-    <p>Volumetric storage capacity follows Goodman et al. (2011), as Eq. 2 of the paper:</p>
-    <code class="eq">M_CO2  =  A &times; h &times; NTG &times; &phi; &times; (1 &minus; S_wirr) &times; E &times; &rho;_CO2</code>
+    <h3>The published cut-offs</h3>
+    <div class="scroller"><table class="data" id="pubTable"></table></div>
+
+    <h3>Zones are recomputed, not looked up</h3>
     <p>
-      where <i>A</i> is the area of the optimal zone, <i>h</i> aquifer thickness, <i>NTG</i> the
-      net-to-gross ratio, <i>&phi;</i> porosity, <i>S<sub>wirr</sub></i> irreducible water saturation,
-      <i>E</i> the storage efficiency factor and <i>&rho;<sub>CO2</sub></i> in-situ CO&#8322; density.
-      Each realisation draws every term independently from a truncated normal distribution.
+      Every time you move a control the app reclassifies the whole aquifer from the underlying property
+      grids &mdash; porosity, CO&#8322; density, CO&#8322; phase, fault setback class and overpressure flag &mdash;
+      exactly as <code>make_optimal_zone_map.py</code> does. Nothing is precomputed, so any combination of
+      cut-offs is fair game, including ones the paper never tried.
+    </p>
+    <p>
+      The grids are packed into one RGB image per aquifer: red carries porosity in 0.2 % steps, green
+      carries CO&#8322; density in 4 kg/m&#179; steps, and blue carries the fault class, phase, overpressure
+      and footprint flags as bits. They are resampled to a 400 m grid from the archived 200 m grids, which
+      keeps each aquifer around 150&ndash;300 KB and the reclassification under about 15 ms.
     </p>
 
-    <h3>Where the numbers come from</h3>
-    <ul>
-      <li><b>Area, porosity, CO&#8322; density</b> &mdash; Table 2 of the paper; porosity and density are the
-          means within each aquifer's optimal zones.</li>
-      <li><b>Thickness, NTG</b> &mdash; Table 2, and the supplementary file
-          <code>2 Text files/thickness_ntg_averages.txt</code>, derived from petrophysical analysis of twelve wells.</li>
-      <li><b>S<sub>wirr</sub> = 0.27</b> &mdash; de Jonge-Anderson et al. (2024a).
-          <b>E = 2 %</b> &mdash; Hasbollah et al. (2020).</li>
-      <li><b>Maps</b> &mdash; decoded directly from <code>9 Optimal zone grids/*.bil</code>, which are
-          GeoTIFFs on a 200 m grid in EPSG:24548. Rendered at native resolution, so pixel areas are exact.</li>
-    </ul>
-
-    <h3>Assumptions this tool had to make</h3>
-    <div class="warn" id="calNote"></div>
-
-    <h3>Reproducing the published table</h3>
+    <h3>How faithfully does it reproduce the paper?</h3>
     <div id="reproNote"></div>
 
-    <h3>Known difference between the archived grids and Table 2</h3>
-    <div class="warn" id="areaNote"></div>
+    <h3>Two things the archived data says that the summary table does not</h3>
+    <div class="warn" id="quirkNote"></div>
 
-    <h3>What this tool does not do</h3>
+    <h3>Capacity</h3>
+    <code class="eq">M_CO2  =  A &times; h &times; NTG &times; &phi; &times; (1 &minus; S_wirr) &times; E &times; &rho;_CO2</code>
+    <p>
+      Area, porosity and CO&#8322; density come from your live zone; thickness and NTG are the published
+      per-aquifer values from well petrophysics. S<sub>wirr</sub> = 0.27 and E = 0.02 follow the paper,
+      which gives their means but not their standard deviations &mdash; this tool uses
+      &plusmn; 0.05 and &plusmn; 0.01 respectively, the latter chosen because it reproduces the published
+      P10&ndash;P50&ndash;P90 most closely. Percentiles use the paper's exceedance convention, so
+      <b>P10 is the high estimate</b>.
+    </p>
+
+    <h3>What this does not do</h3>
     <ul>
-      <li>No caprock integrity, injectivity or permeability assessment &mdash; explicitly out of scope in the paper.</li>
-      <li>No dynamic or reservoir simulation; <i>E</i> is a lumped static efficiency factor.</li>
-      <li>Sub-optimal zones are mapped but were not included in the published volumetrics.</li>
-      <li>Correlation between variables (e.g. porosity and thickness) is not modelled; all terms are drawn independently.</li>
+      <li>No connected-area clustering. The paper discards optimal zones smaller than 100 km&#178; via DBSCAN;
+          areas here are the raw classified total, so they run slightly higher.</li>
+      <li>No caprock integrity, injectivity or permeability assessment &mdash; out of scope in the paper too.</li>
+      <li>Porosity is the basin-wide depth trend, not a facies model, so it cannot capture local
+          reservoir quality.</li>
     </ul>
 
     <footer>
       Built from the supplementary dataset at
       <a href="https://doi.org/10.5281/zenodo.14761426" target="_blank" rel="noopener">doi.org/10.5281/zenodo.14761426</a>.
-      Paper published open access under CC BY 4.0.
-      Capacity figures are regional screening estimates and are not a substitute for site-specific evaluation.
+      Paper published open access under CC BY 4.0. Screening estimates, not a substitute for site-specific evaluation.
     </footer>
   </section>
 </div>
 
-<script src="data.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
