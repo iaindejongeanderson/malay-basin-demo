@@ -1,0 +1,23 @@
+# ---------------------------------------------------------------------------
+# Raster grids (~900 MB). Already archived and citable at
+#   https://doi.org/10.5281/zenodo.14761426
+# The web app does not need them: docs/data.js embeds the optimal-zone rasters,
+# and docs/data/*.png + grids.json hold them losslessly as standalone files.
+# Delete the lines below if you do want the full dataset in the repo.
+# ---------------------------------------------------------------------------
+/3 Depth grids/
+/4 Porosity grids/
+/5 Temperature grids/
+/6 Pressure grids/
+/7 CO2 property grids/
+/8 Fault grids/
+/9 Optimal zone grids/
+
+# Published article PDF (10 MB). Open access at
+#   https://doi.org/10.1016/j.ijggc.2025.104347
+*.pdf
+
+# OS / editor noise
+Thumbs.db
+desktop.ini
+.DS_Store

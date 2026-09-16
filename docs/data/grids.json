@@ -1,0 +1,287 @@
+{
+    "E":  {
+              "width":  1730,
+              "height":  1187,
+              "originX":  183500,
+              "originY":  814700,
+              "cellSize":  200,
+              "optimalAreaKm2":  9118,
+              "clusters":  [
+                               {
+                                   "id":  1,
+                                   "areaKm2":  6429.7
+                               },
+                               {
+                                   "id":  22,
+                                   "areaKm2":  756.5
+                               },
+                               {
+                                   "id":  13,
+                                   "areaKm2":  731.9
+                               },
+                               {
+                                   "id":  35,
+                                   "areaKm2":  441.6
+                               },
+                               {
+                                   "id":  65,
+                                   "areaKm2":  204.6
+                               },
+                               {
+                                   "id":  43,
+                                   "areaKm2":  177.4
+                               }
+                           ]
+          },
+    "D":  {
+              "width":  1550,
+              "height":  1176,
+              "originX":  183500,
+              "originY":  814700,
+              "cellSize":  200,
+              "optimalAreaKm2":  3475,
+              "clusters":  [
+                               {
+                                   "id":  12,
+                                   "areaKm2":  1440
+                               },
+                               {
+                                   "id":  2,
+                                   "areaKm2":  785.8
+                               },
+                               {
+                                   "id":  7,
+                                   "areaKm2":  438.9
+                               },
+                               {
+                                   "id":  21,
+                                   "areaKm2":  302
+                               },
+                               {
+                                   "id":  13,
+                                   "areaKm2":  271.2
+                               },
+                               {
+                                   "id":  1,
+                                   "areaKm2":  142
+                               }
+                           ]
+          },
+    "J":  {
+              "width":  2000,
+              "height":  2050,
+              "originX":  180000,
+              "originY":  820000,
+              "cellSize":  200,
+              "optimalAreaKm2":  15465,
+              "clusters":  [
+                               {
+                                   "id":  50,
+                                   "areaKm2":  5935.9
+                               },
+                               {
+                                   "id":  22,
+                                   "areaKm2":  2740.2
+                               },
+                               {
+                                   "id":  9,
+                                   "areaKm2":  1970.8
+                               },
+                               {
+                                   "id":  25,
+                                   "areaKm2":  1533.8
+                               },
+                               {
+                                   "id":  2,
+                                   "areaKm2":  1209.9
+                               },
+                               {
+                                   "id":  5,
+                                   "areaKm2":  379.7
+                               },
+                               {
+                                   "id":  8,
+                                   "areaKm2":  374.7
+                               },
+                               {
+                                   "id":  31,
+                                   "areaKm2":  326.6
+                               },
+                               {
+                                   "id":  32,
+                                   "areaKm2":  200.5
+                               },
+                               {
+                                   "id":  13,
+                                   "areaKm2":  163.9
+                               },
+                               {
+                                   "id":  21,
+                                   "areaKm2":  140.2
+                               },
+                               {
+                                   "id":  12,
+                                   "areaKm2":  123.4
+                               }
+                           ]
+          },
+    "F":  {
+              "width":  1927,
+              "height":  1799,
+              "originX":  183500,
+              "originY":  814700,
+              "cellSize":  200,
+              "optimalAreaKm2":  4467,
+              "clusters":  [
+                               {
+                                   "id":  32,
+                                   "areaKm2":  2438.6
+                               },
+                               {
+                                   "id":  1,
+                                   "areaKm2":  1737.6
+                               }
+                           ]
+          },
+    "B":  {
+              "width":  2000,
+              "height":  2050,
+              "originX":  180000,
+              "originY":  820000,
+              "cellSize":  200,
+              "optimalAreaKm2":  0,
+              "clusters":  [
+
+                           ]
+          },
+    "I":  {
+              "width":  2000,
+              "height":  2050,
+              "originX":  180000,
+              "originY":  820000,
+              "cellSize":  200,
+              "optimalAreaKm2":  24402,
+              "clusters":  [
+                               {
+                                   "id":  1,
+                                   "areaKm2":  11101.2
+                               },
+                               {
+                                   "id":  34,
+                                   "areaKm2":  9063.4
+                               },
+                               {
+                                   "id":  8,
+                                   "areaKm2":  2000.8
+                               },
+                               {
+                                   "id":  55,
+                                   "areaKm2":  1861
+                               },
+                               {
+                                   "id":  14,
+                                   "areaKm2":  214.9
+                               }
+                           ]
+          },
+    "K":  {
+              "width":  2000,
+              "height":  2050,
+              "originX":  180000,
+              "originY":  820000,
+              "cellSize":  200,
+              "optimalAreaKm2":  12597,
+              "clusters":  [
+                               {
+                                   "id":  15,
+                                   "areaKm2":  5462.1
+                               },
+                               {
+                                   "id":  13,
+                                   "areaKm2":  3231.2
+                               },
+                               {
+                                   "id":  2,
+                                   "areaKm2":  1970.8
+                               },
+                               {
+                                   "id":  1,
+                                   "areaKm2":  1085.6
+                               },
+                               {
+                                   "id":  16,
+                                   "areaKm2":  218.3
+                               },
+                               {
+                                   "id":  6,
+                                   "areaKm2":  148
+                               },
+                               {
+                                   "id":  5,
+                                   "areaKm2":  123.4
+                               },
+                               {
+                                   "id":  18,
+                                   "areaKm2":  120.1
+                               },
+                               {
+                                   "id":  24,
+                                   "areaKm2":  112
+                               }
+                           ]
+          },
+    "H":  {
+              "width":  1973,
+              "height":  1813,
+              "originX":  180000,
+              "originY":  814500,
+              "cellSize":  200,
+              "optimalAreaKm2":  9524,
+              "clusters":  [
+                               {
+                                   "id":  50,
+                                   "areaKm2":  3147.4
+                               },
+                               {
+                                   "id":  23,
+                                   "areaKm2":  2167.7
+                               },
+                               {
+                                   "id":  69,
+                                   "areaKm2":  991.1
+                               },
+                               {
+                                   "id":  57,
+                                   "areaKm2":  913.4
+                               },
+                               {
+                                   "id":  9,
+                                   "areaKm2":  806.8
+                               },
+                               {
+                                   "id":  70,
+                                   "areaKm2":  426.5
+                               },
+                               {
+                                   "id":  61,
+                                   "areaKm2":  208.5
+                               },
+                               {
+                                   "id":  15,
+                                   "areaKm2":  178.3
+                               },
+                               {
+                                   "id":  76,
+                                   "areaKm2":  155.7
+                               },
+                               {
+                                   "id":  64,
+                                   "areaKm2":  150
+                               },
+                               {
+                                   "id":  21,
+                                   "areaKm2":  123.3
+                               }
+                           ]
+          }
+}
